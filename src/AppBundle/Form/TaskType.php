@@ -17,7 +17,7 @@ class TaskType extends AbstractType
         $builder
             ->add('title')
             ->add('plannedWork')
-            ->add('dueDate', DateTimeType::class, ['widget' => 'single_text', 'format' => 'yyyy-MM-dd hh:ii', 'attr' => ['class' => 'datepicker']])
+            ->add('dueDate', DateTimeType::class, ['widget' => 'single_text', 'format' => 'yyyy-MM-dd hh:mm', 'attr' => ['class' => 'datepicker']])
             ->add('user');
     }
     
