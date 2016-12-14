@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h3>Task edit</h3>
+
+    {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input class="btn btn-primary" type="submit" value="Save"/>
+    <a class="btn btn-default" href="{{ path('task_index') }}">Back to the list</a>
+    {{ form_end(form) }}
+
+    {{ form_start(delete_form) }}
+    <input class="btn btn-danger" type="submit" value="Delete">
+    {{ form_end(delete_form) }}
+{% endblock %}
