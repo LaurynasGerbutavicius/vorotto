@@ -1,0 +1,33 @@
+AppBundle\Entity\Income:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\IncomeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        quantity:
+            type: decimal
+            precision: 10
+            scale: 2
+        price:
+            type: decimal
+            precision: 10
+            scale: 2
+        amount:
+            type: decimal
+            precision: 10
+            scale: 2
+    lifecycleCallbacks: {  }
+    manyToOne:
+        user:
+          targetEntity: AppBundle\Entity\User
+          joinColumn:
+            name: user_id
+            referencedColumnName: id

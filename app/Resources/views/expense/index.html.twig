@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Expenses list</h1>
+
+    <table class="table table-striped table-hover dt">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Amount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for expense in expenses %}
+            <tr>
+                <td><a href="{{ path('expense_show', { 'id': expense.id }) }}">{{ expense.id }}</a></td>
+                <td>{{ expense.title }}</td>
+                <td>{{ expense.quantity }}</td>
+                <td>{{ expense.price }}</td>
+                <td>{{ expense.amount }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('expense_show', { 'id': expense.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('expense_edit', { 'id': expense.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('expense_new') }}">Create a new expense</a>
+        </li>
+    </ul>
+{% endblock %}
