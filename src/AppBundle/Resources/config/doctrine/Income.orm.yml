@@ -24,6 +24,9 @@ AppBundle\Entity\Income:
             type: decimal
             precision: 10
             scale: 2
+        date:
+            type: date
+            nullable: true
     lifecycleCallbacks: {  }
     manyToOne:
         user:

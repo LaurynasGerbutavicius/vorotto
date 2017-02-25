@@ -1,0 +1,41 @@
+action:
+    edit: Edit
+    new: New
+    delete: Delete
+    show: Show
+    save: Save
+    to_list: 'To list'
+    login: Login
+    logout: Logout
+
+field.label:
+    id: Id
+    title: Title
+    quantity: Quantity
+    price: Price
+    amount: Amount
+    date: Date
+    actions: Actions
+    user: User
+
+list.title:
+    expense: Expenses
+    income: Income
+    widgets: Widgets
+
+form.title:
+    new:
+        income: 'New Income'
+        expense: 'New Expense'
+    edit:
+        income: 'Edit Income'
+        expense: 'Edit Expense'
+    show:
+        income: 'Show Income'
+        expense: 'Show Expense'
+
+placeholder:
+    search: Search
+
+user:
+    annonymous: annonymous

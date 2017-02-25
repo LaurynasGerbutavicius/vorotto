@@ -1,0 +1,16 @@
+{% spaceless %}
+    {% if field_data is iterable %}
+        <span
+                {% if field_data.class is defined %}
+                    class="{{ field_data.class }}"
+                {% endif %}
+                {% if field_data.route is defined %}
+                    href="{{ path(field_data.route, field_data.route_parameters|default({})) }}"
+                {% endif %}
+        >
+            {{ field_data.data }}
+        </span>
+    {% else %}
+        <span>{{ field_data }}</span>
+    {% endif %}
+{% endspaceless %}

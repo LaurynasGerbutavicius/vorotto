@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% set listPath = path(entity_name ~ '_index') %}
+
+    <h3>{{ ('form.title.'~form_type~'.'~entity_name)|trans }}</h3>
+
+    {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <div class="btn-group text-center">
+        {% if form_type == 'show' %}
+            {% set edit_path = path(entity_name ~ '_edit', {'id' : entity_id}) %}
+            <a class="btn btn-primary" href="{{edit_path }}">{{ 'action.edit'|trans }}</a>
+        {% else %}
+            <input class="btn btn-primary" type="submit" value="{{ 'action.save'|trans }}"/>
+        {% endif %}
+        <a class="btn btn-default" href="{{ listPath }}">{{ 'action.to_list'|trans }}</a>
+    </div>
+
+    {{ form_end(form) }}
+
+    {% if form_type != 'new' %}
+        {{ form_start(delete_form) }}
+        <input class="btn btn-danger" type="submit" value="{{ 'action.delete'|trans }}">
+        {{ form_end(delete_form) }}
+    {% endif %}
+
+{% endblock %}

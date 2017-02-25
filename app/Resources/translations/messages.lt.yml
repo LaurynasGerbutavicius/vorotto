@@ -1,0 +1,41 @@
+action:
+    edit: Redaguoti
+    new: 'Kurti naują'
+    delete: Trinti
+    show: Rodyti
+    save: Išsaugoti
+    to_list: 'Į sąrašą'
+    login: Prisijungti
+    logout: Atsijungti
+
+field.label:
+    id: Id
+    title: Pavadinimas
+    quantity: Kiekis
+    price: Kaina
+    amount: Suma
+    date: Data
+    actions: Veiksmai
+    user: Vartotojas
+
+list.title:
+    expense: Išlaidos
+    income: Pajamos
+    widgets: Grafikai
+
+form.title:
+    new:
+        income: 'Pajamų kūrimas'
+        expense: 'Išlaidų kūrimas'
+    edit:
+        income: 'Pajamų redagavimas'
+        expense: 'Išlaidų redagavimas'
+    show:
+        income: 'Pajamų peržiūra'
+        expense: 'Išlaidų peržiūra'
+
+placeholder:
+    search: Ieškoti
+
+user:
+    annonymous: anonimas

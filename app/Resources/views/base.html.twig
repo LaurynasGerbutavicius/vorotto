@@ -52,28 +52,26 @@
                         </div>
                         <div class="navbar-collapse collapse navbar-responsive-collapse">
                             <ul class="nav navbar-nav">
-                                {#<li{% if app.request.attributes.get('_route') == 'task_index' %} class="active"{% endif %}>#}
-                                    {#<a href="{{ path('task_index') }}">Task</a>#}
-                                {#</li>#}
                                 <li{% if app.request.attributes.get('_route') == 'income_index' %} class="active"{% endif %}>
-                                    <a href="{{ path('income_index') }}">{{ 'title.income'|trans }}</a>
+                                    <a href="{{ path('income_index') }}">{{ 'list.title.income'|trans }}</a>
                                 </li>
                                 <li{% if app.request.attributes.get('_route') == 'expense_index' %} class="active"{% endif %}>
-                                    <a href="{{ path('expense_index') }}">{{ 'title.expenses'|trans }}</a>
+                                    <a href="{{ path('expense_index') }}">{{ 'list.title.expense'|trans }}</a>
                                 </li>
                                 <li{% if app.request.attributes.get('_route') == 'widgets_index' %} class="active"{% endif %}>
-                                    <a href="#">{{ 'title.widgets'|trans }}</a>
+                                    <a href="#">{{ 'list.title.widgets'|trans }}</a>
                                 </li>
                             </ul>
-                            <form class="navbar-form navbar-left" action="{{ path('search') }}" method="GET">
-                                <div class="form-group">
-                                    <input id="q" name="q" type="text" class="form-control col-md-8"
-                                           placeholder="{{ 'placeholder.search'|trans }}">
-                                </div>
-                            </form>
+                            {#<form class="navbar-form navbar-left" action="{{ path('search') }}" method="GET">#}
+                                {#<div class="form-group">#}
+                                    {#<input id="q" name="q" type="text" class="form-control col-md-8"#}
+                                           {#placeholder="{{ 'placeholder.search'|trans }}">#}
+                                {#</div>#}
+                            {#</form>#}
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
-                                    <a><i class="material-icons">face</i> {{ app.user ? app.user : 'annonymous'|trans }}
+                                    <a>
+                                        <i class="material-icons">face</i> {{ app.user ? app.user : 'user.annonymous'|trans }}
                                     </a>
                                 </li>
                                 <li>
@@ -84,7 +82,8 @@
                     </div>
                 </div>
                 <div class="jumbotron">
-                    {% block body %}{% endblock %}
+                    {% block body %}
+                    {% endblock %}
                 </div>
             </div>
         </div>

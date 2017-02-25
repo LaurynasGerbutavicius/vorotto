@@ -167,5 +167,33 @@ class Expense
     {
         return $this->user;
     }
-}
+    /**
+     * @var \DateTime
+     */
+    private $date;
 
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Expense
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+}

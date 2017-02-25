@@ -1,6 +1,3 @@
-app_task:
-    resource: "@AppBundle/Resources/config/routing/task.php"
-    prefix:   /task
 app_expense:
     resource: "@AppBundle/Resources/config/routing/expense.php"
     prefix:   /expense
