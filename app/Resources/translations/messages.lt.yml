@@ -2,14 +2,14 @@ action:
     edit: Redaguoti
     new: 'Kurti naują'
     delete: Trinti
-    show: Rodyti
+    show: Peržiūrėti
     save: Išsaugoti
     to_list: 'Į sąrašą'
     login: Prisijungti
     logout: Atsijungti
 
 field.label:
-    id: Id
+    id: Nr.
     title: Pavadinimas
     quantity: Kiekis
     price: Kaina
@@ -25,8 +25,8 @@ list.title:
 
 form.title:
     new:
-        income: 'Pajamų kūrimas'
-        expense: 'Išlaidų kūrimas'
+        income: 'Naujos Pajamos'
+        expense: 'Naujos Išlaidos'
     edit:
         income: 'Pajamų redagavimas'
         expense: 'Išlaidų redagavimas'
@@ -39,3 +39,17 @@ placeholder:
 
 user:
     annonymous: anonimas
+
+weekday:
+    0: Se
+    1: Pi
+    2: An
+    3: Tr
+    4: Ke
+    5: Pe
+    6: Še
+
+total:
+    income: 'Viso pajamos'
+    expense: 'Viso išlaidos'
+    balance: Balansas

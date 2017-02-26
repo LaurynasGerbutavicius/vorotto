@@ -11,7 +11,6 @@ namespace AppBundle\Utils\Controller;
 use AppBundle\Utils\Entity\EntityDataFormatter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,18 +28,20 @@ abstract class AppController extends Controller
 
         $entityFieldNames = $em->getClassMetadata($this->getEntityClass())
             ->getFieldNames();
+        
         $entityFields = [];
         foreach ($entityFieldNames as $fieldName) {
             $entityFields[$fieldName] = $em->getClassMetadata($this->getEntityClass())
                 ->getTypeOfField($fieldName);
         }
 
-        $entities = $em->getRepository($this->getEntityClass())->findAll();
-
+        $entities = $em->getRepository($this->getEntityClass())->findBy(['user' => $this->getUser()]);
+        
         return $this->render('default/list.html.twig', array(
             'entity_name' => $this->entityName,
             'entity_fields' => $entityFields,
             'list' => $entities,
+            'additional_data' => $this->getAdditionalListData($this->getUser())
         ));
     }
     
@@ -52,11 +53,13 @@ abstract class AppController extends Controller
     {
         $entityClass = $this->getEntityClass();
         $entity = new $entityClass();
+        $this->setEntityDefaults($entity);
         $form = $this->createForm($this->getEntityFormType(), $entity);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $this->preEntitySave($entity, $form);
             $em->persist($entity);
             $em->flush();
 
@@ -79,13 +82,11 @@ abstract class AppController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->find($this->getEntityClass(), $id);
         $form = $this->createForm($this->getEntityFormType(), $entity, ['disabled' => true]);
-        $deleteForm = $this->createDeleteForm($entity);
 
         return $this->render('default/form.html.twig', array(
             'entity_name' => $this->entityName,
             'entity_id' => $entity->getId(),
             'form' => $form->createView(),
-            'delete_form' => $deleteForm->createView(),
             'form_type' => 'show'
         ));
     }
@@ -99,11 +100,11 @@ abstract class AppController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->find($this->getEntityClass(), $id);
-        $deleteForm = $this->createDeleteForm($entity);
-        $editForm = $this->createForm($this->getEntityFormType(), $entity);
-        $editForm->handleRequest($request);
+        $form = $this->createForm($this->getEntityFormType(), $entity);
+        $form->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->preEntitySave($entity, $form);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute($this->entityName . '_edit', array('id' => $entity->getId()));
@@ -112,8 +113,7 @@ abstract class AppController extends Controller
         return $this->render('default/form.html.twig', array(
             'entity_name' => $this->entityName,
             'entity_id' => $entity->getId(),
-            'form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form' => $form->createView(),
             'form_type' => 'edit'
         ));
     }
@@ -127,27 +127,29 @@ abstract class AppController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->find($this->getEntityClass(), $id);
-        $form = $this->createDeleteForm($entity);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($entity) {
             $em->remove($entity);
             $em->flush();
         }
 
         return $this->redirectToRoute($this->entityName . '_index');
     }
-
-    /**
-     * @param $entity
-     * @return Form|FormInterface
-     */
-    private function createDeleteForm($entity)
+    
+    protected function getAdditionalListData($user)
     {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl($this->entityName . '_delete', array('id' => $entity->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
+        return [];
+    }
+
+    protected function setEntityDefaults($entity)
+    {
+        $entity->setUser($this->getUser());
+        $entity->setQuantity(1);
+    }
+
+    protected function preEntitySave($entity, Form $form)
+    {
+        $formData = $form->getData();
+        $entity->setAmount($formData->getPrice() * $formData->getQuantity());
     }
 
     /**

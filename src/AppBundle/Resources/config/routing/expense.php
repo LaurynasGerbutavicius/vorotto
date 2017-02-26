@@ -52,7 +52,7 @@ $collection->add('expense_delete', new Route(
     array(),
     '',
     array(),
-    array('DELETE')
+    array('GET')
 ));
 
 return $collection;

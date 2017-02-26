@@ -28,12 +28,14 @@ class AppExtension extends \Twig_Extension
         switch ($type) {
             case 'date' :
                 if ($data instanceof \DateTime) {
-                    return $data->format('Y-m-d');
+                    $weekDayNo = $data->format('w');
+                    return ['data' => $data->format('Y-m-d'), 'chip_data' => 'weekday.'.$weekDayNo];
                 } else {
                     return '';
                 }
             case 'decimal' :
-                return ['data' => $data, 'class' => 'number'];
+                $isCurrency = in_array($fieldName, ['price', 'amount']);
+                return ['data' => $isCurrency ? $data : ($data + 0), 'class' => 'number', 'currency' => $isCurrency];
             default :
                 return $data;
         }

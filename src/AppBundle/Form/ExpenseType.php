@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,17 +33,26 @@ class ExpenseType extends AbstractType
                 'label' => 'field.label.date'
             ])
             ->add('quantity', NumberType::class, [
-                'label' => 'field.label.quantity'
+                'label' => 'field.label.quantity',
+                'attr' => [
+                    'data-math-multiply' => json_encode([
+                        'field' => $this->getBlockPrefix() . '_price',
+                        'target' => $this->getBlockPrefix().'_amount'
+                    ])
+                ]
             ])
             ->add('price', MoneyType::class, [
-                'label' => 'field.label.price'
+                'label' => 'field.label.price',
+                'attr' => [
+                    'data-math-multiply' => json_encode([
+                        'field' => $this->getBlockPrefix() . '_quantity',
+                        'target' => $this->getBlockPrefix().'_amount'
+                    ])
+                ]
             ])
             ->add('amount', MoneyType::class, [
-                'label' => 'field.label.amount'
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'label' => 'field.label.user'
+                'label' => 'field.label.amount',
+                'disabled' => true
             ]);
     }
     

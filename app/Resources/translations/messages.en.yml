@@ -2,14 +2,14 @@ action:
     edit: Edit
     new: New
     delete: Delete
-    show: Show
+    show: Preview
     save: Save
     to_list: 'To list'
     login: Login
     logout: Logout
 
 field.label:
-    id: Id
+    id: No.
     title: Title
     quantity: Quantity
     price: Price
@@ -39,3 +39,17 @@ placeholder:
 
 user:
     annonymous: annonymous
+
+weekday:
+    0: Su
+    1: Mo
+    2: Tu
+    3: We
+    4: Th
+    5: Fr
+    6: Sa
+
+total:
+    expense: 'Total expenses'
+    income: 'Total income'
+    balance: 'Balance'

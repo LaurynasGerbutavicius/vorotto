@@ -1,16 +1,28 @@
-{% spaceless %}
-    {% if field_data is iterable %}
-        <span
-                {% if field_data.class is defined %}
-                    class="{{ field_data.class }}"
+<td data-order="{{ field_data.data is defined ? field_data.data : field_data }}">
+    {% spaceless %}
+        {% if field_data is iterable %}
+            {% if field_data.chip_data is defined %}
+                <span class="mdl-chip mdl-chip--contact">
+                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{ field_data.chip_data|trans }}</span>
+                    <span class="mdl-chip__text">{{ field_data.data }}</span>
+                </span>
+            {% else %}
+                <span
+                        {% if field_data.class is defined %}
+                            class="{{ field_data.class }}"
+                        {% endif %}
+                        {% if field_data.route is defined %}
+                            href="{{ path(field_data.route, field_data.route_parameters|default({})) }}"
+                        {% endif %}
+                >
+                {% if field_data.currency is defined and field_data.currency %}
+                    <span class="currency-euro">€</span>
                 {% endif %}
-                {% if field_data.route is defined %}
-                    href="{{ path(field_data.route, field_data.route_parameters|default({})) }}"
-                {% endif %}
-        >
-            {{ field_data.data }}
-        </span>
-    {% else %}
-        <span>{{ field_data }}</span>
-    {% endif %}
-{% endspaceless %}
+                    {{ field_data.data }}
+            </span>
+            {% endif %}
+        {% else %}
+            <span>{{ field_data }}</span>
+        {% endif %}
+    {% endspaceless %}
+</td>

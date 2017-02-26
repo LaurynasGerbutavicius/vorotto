@@ -49,3 +49,40 @@ span.number {
     float: right;
     margin-right: 3em;
 }
+
+.actions-col {
+    width: 1%;
+}
+
+.actions-col .btn-group {
+    white-space: nowrap;
+}
+
+.actions-col .btn-group a.btn {
+    float: none;
+}
+
+.totals {
+    font-size: 2em;
+}
+
+.total-text {
+    font-size: 0.5em;
+}
+
+#total-balance {
+    border-left: 4px solid #00a7f7;
+}
+
+#total-income {
+    border-left: 4px solid #89c541;
+}
+
+#total-expense {
+    border-left: 4px solid #f7412d;
+}
+
+.dataTables_empty {
+    padding-left: 1em !important;
+    height: 3em;
+}

@@ -2,29 +2,39 @@
 
 {% block body %}
     {% set listPath = path(entity_name ~ '_index') %}
+    {% set new_path_route = entity_name ~ '_new' %}
 
-    <h3>{{ ('form.title.'~form_type~'.'~entity_name)|trans }}</h3>
+    <div class="row">
+        <div class="col-md-8">
+            <h3>{{ ('form.title.'~form_type~'.'~entity_name)|trans }}</h3>
+        </div>
+        <div class="col-md-4">
+            {% if form_type != 'new' %}
+                <a class="btn btn-raised btn-primary pull-right"
+                   href="{{ path(new_path_route) }}">{{ 'action.new'|trans }}
+                </a>
+            {% endif %}
+            <a class="btn btn-default" href="{{ listPath }}">{{ 'action.to_list'|trans }}</a>
+        </div>
+    </div>
 
     {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
     {{ form_start(form) }}
     {{ form_widget(form) }}
 
-    <div class="btn-group text-center">
+    <div class="btn-group text-center row">
         {% if form_type == 'show' %}
             {% set edit_path = path(entity_name ~ '_edit', {'id' : entity_id}) %}
-            <a class="btn btn-primary" href="{{edit_path }}">{{ 'action.edit'|trans }}</a>
+            <a class="btn btn-primary" href="{{ edit_path }}">{{ 'action.edit'|trans }}</a>
         {% else %}
             <input class="btn btn-primary" type="submit" value="{{ 'action.save'|trans }}"/>
         {% endif %}
-        <a class="btn btn-default" href="{{ listPath }}">{{ 'action.to_list'|trans }}</a>
+        {% if form_type != 'new' %}
+            {% set delete_path = path(entity_name ~ '_delete', {'id' : entity_id}) %}
+            <a class="btn btn-danger pull-right" href="{{ delete_path }}">{{ 'action.delete'|trans }}</a>
+        {% endif %}
     </div>
 
     {{ form_end(form) }}
-
-    {% if form_type != 'new' %}
-        {{ form_start(delete_form) }}
-        <input class="btn btn-danger" type="submit" value="{{ 'action.delete'|trans }}">
-        {{ form_end(delete_form) }}
-    {% endif %}
 
 {% endblock %}

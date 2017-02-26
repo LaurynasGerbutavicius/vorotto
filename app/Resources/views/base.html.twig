@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-locale="{{ locale }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +11,9 @@
 
         <link href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/1.10.13/css/dataTables.material.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+
 
         {% stylesheets
         'bundles/app/css/bootstrap.min.css'
@@ -63,10 +66,10 @@
                                 </li>
                             </ul>
                             {#<form class="navbar-form navbar-left" action="{{ path('search') }}" method="GET">#}
-                                {#<div class="form-group">#}
-                                    {#<input id="q" name="q" type="text" class="form-control col-md-8"#}
-                                           {#placeholder="{{ 'placeholder.search'|trans }}">#}
-                                {#</div>#}
+                            {#<div class="form-group">#}
+                            {#<input id="q" name="q" type="text" class="form-control col-md-8"#}
+                            {#placeholder="{{ 'placeholder.search'|trans }}">#}
+                            {#</div>#}
                             {#</form>#}
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
@@ -81,6 +84,8 @@
                         </div>
                     </div>
                 </div>
+                {% block top %}
+                {% endblock %}
                 <div class="jumbotron">
                     {% block body %}
                     {% endblock %}
@@ -88,7 +93,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 <br>
 
@@ -100,11 +104,9 @@
     'bundles/app/js/material.min.js'
     'bundles/app/js/moment-with-locales.min.js'
     'bundles/app/js/bootstrap-material-datetimepicker.min.js'
-
     output='js/scripts.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-
     <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.13/js/dataTables.material.min.js"></script>
     <script src="{{ asset('bundles/app/js/jquery.dropdown.js') }}"></script>

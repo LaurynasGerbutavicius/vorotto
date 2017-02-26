@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\User;
 
 /**
  * TaskRepository
@@ -10,4 +11,19 @@ namespace AppBundle\Repository;
  */
 class IncomeRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getTotalIncome($user)
+    {
+        if (!$user instanceof User) {
+            return 0;
+        }
+
+        return $this->createQueryBuilder('i')
+            ->select('sum(i.amount)')
+            ->join('i.user', 'u')
+            ->where('u.id = :user_id')
+            ->setParameter('user_id', $user->getId())
+            ->getQuery()
+            ->getSingleScalarResult();
+
+    }
 }
