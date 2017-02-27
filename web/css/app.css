@@ -86,3 +86,16 @@ span.number {
     padding-left: 1em !important;
     height: 3em;
 }
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+#list_filter_form {
+    display: none;
+}
+
+#list_filter_form .form-group {
+    margin-top: 0;
+}

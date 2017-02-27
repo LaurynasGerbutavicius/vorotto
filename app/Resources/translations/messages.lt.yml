@@ -7,6 +7,7 @@ action:
     to_list: 'Į sąrašą'
     login: Prisijungti
     logout: Atsijungti
+    filter: Filtruoti
 
 field.label:
     id: Nr.
@@ -53,3 +54,8 @@ total:
     income: 'Viso pajamos'
     expense: 'Viso išlaidos'
     balance: Balansas
+
+filter:
+    label:
+        date_from: 'Data nuo'
+        date_to: 'Data iki'

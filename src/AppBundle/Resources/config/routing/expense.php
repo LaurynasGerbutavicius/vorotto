@@ -55,4 +55,14 @@ $collection->add('expense_delete', new Route(
     array('GET')
 ));
 
+$collection->add('expense_filter', new Route(
+    '/filter',
+    array('_controller' => 'AppBundle:Expense:filter'),
+    array(),
+    array(),
+    '',
+    array(),
+    array('GET')
+));
+
 return $collection;

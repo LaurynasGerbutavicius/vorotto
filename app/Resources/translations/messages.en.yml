@@ -7,6 +7,7 @@ action:
     to_list: 'To list'
     login: Login
     logout: Logout
+    filter: Filter
 
 field.label:
     id: No.
@@ -53,3 +54,9 @@ total:
     expense: 'Total expenses'
     income: 'Total income'
     balance: 'Balance'
+
+
+filter:
+    label:
+        date_from: 'Date from'
+        date_to: 'Date to'

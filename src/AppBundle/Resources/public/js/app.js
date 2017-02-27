@@ -33,10 +33,17 @@ $(function () {
         datatableParameters.language = {"url": "https://cdn.datatables.net/plug-ins/1.10.13/i18n/Lithuanian.json"};
     }
 
-    $('table.dt').DataTable(datatableParameters);
+    var $dtTable = $('table.dt');
+    if ($dtTable.length) {
+        $dtTable.DataTable(datatableParameters);
+    }
 
     $("select").dropdown({"optionClass": "withripple"});
     $("#loading").fadeOut("fast");
+
+    $("#slide-toggle").off('click').on('click', function() {
+       $("#list_filter_form").slideToggle();
+    });
 
     var $mathMultiplyFields = $('[data-math-multiply]');
     if ($mathMultiplyFields.length) {

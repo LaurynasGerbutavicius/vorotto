@@ -55,4 +55,14 @@ $collection->add('income_delete', new Route(
     array('GET')
 ));
 
+$collection->add('income_filter', new Route(
+    '/filter',
+    array('_controller' => 'AppBundle:Income:filter'),
+    array(),
+    array(),
+    '',
+    array(),
+    array('GET')
+));
+
 return $collection;

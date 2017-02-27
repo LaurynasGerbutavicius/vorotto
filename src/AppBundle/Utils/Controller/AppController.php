@@ -14,6 +14,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\VarDumper\VarDumper;
 
 abstract class AppController extends Controller
 {
@@ -43,6 +44,14 @@ abstract class AppController extends Controller
             'list' => $entities,
             'additional_data' => $this->getAdditionalListData($this->getUser())
         ));
+    }
+    
+    public function filterAction(Request $request) 
+    {
+        VarDumper::dump($request->get('from'));
+        VarDumper::dump($request->get('to'));
+
+        return $this->indexAction();
     }
     
     /**
