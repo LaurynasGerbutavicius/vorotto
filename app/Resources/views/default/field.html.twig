@@ -7,7 +7,7 @@
                     <span class="mdl-chip__text">{{ field_data.data }}</span>
                 </span>
             {% else %}
-                <span
+                <div
                         {% if field_data.class is defined %}
                             class="{{ field_data.class }}"
                         {% endif %}
@@ -19,7 +19,7 @@
                     <span class="currency-euro">€</span>
                 {% endif %}
                     {{ field_data.data }}
-            </span>
+            </div>
             {% endif %}
         {% else %}
             <span>{{ field_data }}</span>

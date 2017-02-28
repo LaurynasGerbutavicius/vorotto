@@ -15,17 +15,4 @@ use Symfony\Component\HttpFoundation\Request;
 class IncomeController extends AppController
 {
     protected $entityName = 'income';
-
-    /**
-     * @param $user
-     * @return array
-     */
-    public function getAdditionalListData($user)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $totalIncome = $em->getRepository(Income::class)->getTotalIncome($user);
-        $totalExpenses = $em->getRepository(Expense::class)->getTotalExpenses($user);
-        
-        return ['totals' => ['income' => $totalIncome, 'expense' => $totalExpenses]];
-    }
 }

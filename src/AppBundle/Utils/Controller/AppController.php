@@ -8,13 +8,15 @@
 
 namespace AppBundle\Utils\Controller;
 
+use AppBundle\Entity\Expense;
+use AppBundle\Entity\Income;
 use AppBundle\Utils\Entity\EntityDataFormatter;
+use Doctrine\Common\Collections\Criteria;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\VarDumper\VarDumper;
 
 abstract class AppController extends Controller
 {
@@ -23,7 +25,7 @@ abstract class AppController extends Controller
     /**
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(Criteria $criteria = null, $filter = null)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -36,20 +38,46 @@ abstract class AppController extends Controller
                 ->getTypeOfField($fieldName);
         }
 
-        $entities = $em->getRepository($this->getEntityClass())->findBy(['user' => $this->getUser()]);
+        if ($criteria) {
+            $entities = $em->getRepository($this->getEntityClass())
+                ->matching($criteria);
+        } else {
+            $entities = $em->getRepository($this->getEntityClass())
+                ->findBy(['user' => $this->getUser()]);
+        }
         
         return $this->render('default/list.html.twig', array(
             'entity_name' => $this->entityName,
             'entity_fields' => $entityFields,
             'list' => $entities,
-            'additional_data' => $this->getAdditionalListData($this->getUser())
+            'additional_data' => $this->getAdditionalListData($this->getUser()),
+            'filter' => $filter
         ));
     }
     
     public function filterAction(Request $request) 
     {
-        VarDumper::dump($request->get('from'));
-        VarDumper::dump($request->get('to'));
+        $from = $request->get('from');
+        $to = $request->get('to');
+
+
+        if ($from || $to) {
+            $criteria = new Criteria();
+            $dateFrom = new \DateTime($from);
+            $dateTo = new \DateTime($to);
+            if ($dateFrom instanceof \DateTime) {
+                $criteria->where($criteria->expr()->gt("date", $dateFrom));
+            }
+            if ($dateTo instanceof \DateTime) {
+                $criteria->andWhere($criteria->expr()->lt("date", $dateTo));
+            }
+            $criteria->andWhere($criteria->expr()->eq("user", $this->getUser()));
+
+                
+            $filter = ['from' => $from, 'to' => $to];
+            
+            return $this->indexAction($criteria, $filter);
+        }
 
         return $this->indexAction();
     }
@@ -146,7 +174,11 @@ abstract class AppController extends Controller
     
     protected function getAdditionalListData($user)
     {
-        return [];
+        $em = $this->getDoctrine()->getManager();
+        $totalIncome = $em->getRepository(Income::class)->getTotalIncome($user);
+        $totalExpenses = $em->getRepository(Expense::class)->getTotalExpenses($user);
+
+        return ['totals' => ['income' => $totalIncome, 'expense' => $totalExpenses]];
     }
 
     protected function setEntityDefaults($entity)

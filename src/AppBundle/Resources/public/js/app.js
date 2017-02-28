@@ -15,7 +15,7 @@ $(function () {
 
     $('.datepicker').bootstrapMaterialDatePicker(datepickerParameters);
 
-    $.material.init();
+    //$.material.init();
 
     var dom = "<'row'<'col-sm-6'><'col-sm-6 pull-right'f>>" +
         "<'row'<'col-sm-12't>>" +
@@ -26,7 +26,20 @@ $(function () {
         "columnDefs": [
             {"orderable": false, "targets": -1}
         ],
-        "order": [[ 5, 'desc' ]]
+        "order": [[5, 'desc']],
+        drawCallback: function () {
+            var api = this.api();
+            $('tfoot .sum-total').html(
+                '<div class="number"><span class="currency-euro">€</span>' +
+                (api.column(4, {page: 'current'}).data().sum() * -1).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') +
+                '</div>'
+            );
+        },
+        responsive: {
+            details: {
+                type: 'column'
+            }
+        }
     };
 
     if (locale === 'lt') {
@@ -35,14 +48,14 @@ $(function () {
 
     var $dtTable = $('table.dt');
     if ($dtTable.length) {
-        $dtTable.DataTable(datatableParameters);
+        var table = $dtTable.DataTable(datatableParameters);
     }
 
     $("select").dropdown({"optionClass": "withripple"});
     $("#loading").fadeOut("fast");
 
-    $("#slide-toggle").off('click').on('click', function() {
-       $("#list_filter_form").slideToggle();
+    $("#slide-toggle").off('click').on('click', function () {
+        $("#list_filter_form").removeClass('hide').fadeToggle();
     });
 
     var $mathMultiplyFields = $('[data-math-multiply]');

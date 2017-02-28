@@ -22,7 +22,7 @@
     {{ form_start(form) }}
     {{ form_widget(form) }}
 
-    <div class="btn-group text-center row">
+    <div class="btn-group text-center row mdl-cell mdl-cell--12-col">
         {% if form_type == 'show' %}
             {% set edit_path = path(entity_name ~ '_edit', {'id' : entity_id}) %}
             <a class="btn btn-primary" href="{{ edit_path }}">{{ 'action.edit'|trans }}</a>

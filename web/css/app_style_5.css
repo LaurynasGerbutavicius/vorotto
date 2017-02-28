@@ -37,6 +37,7 @@
 span.number {
     float: right;
     margin-right: 3em;
+    white-space: nowrap;
 }
 
 .actions-col {
@@ -53,6 +54,10 @@ span.number {
 
 .totals {
     font-size: 2em;
+}
+
+.totals > div {
+    margin-bottom: 1em;
 }
 
 .total-text {
@@ -81,10 +86,15 @@ span.number {
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
 
-#list_filter_form {
+#list_filter_form:not(.filtered) {
     display: none;
 }
 
 #list_filter_form .form-group {
     margin-top: 0;
+}
+
+tfoot tr {
+    height: 3em;
+    border-top: 0.2em solid #009688
 }
