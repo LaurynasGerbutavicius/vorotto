@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block body %}
+    <div class="mdl-grid">
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-cell--4-col mdl-cell--6-col-tablet mdl-cell--8-col-phone">
+            {% if error %}
+                <div class="alert alert-warning"
+                     role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <form action="{{ path("fos_user_security_check") }}" method="post" class="login-form">
+                {% if csrf_token %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                {% endif %}
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text"
+                           id="username" name="_username"
+                           value="{{ last_username }}"/>
+                    <label class="mdl-textfield__label" for="username">{{ 'security.login.username'|trans }}</label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="password"
+                           id="password" name="_password"
+                           />
+                    <label class="mdl-textfield__label" for="password">{{ 'security.login.password'|trans }}</label>
+                </div>
+
+                <div class="login-btn-container">
+                    <input class="btn btn-raised btn-primary login-btn mdl-js-button mdl-js-ripple-effect"
+                           type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"/>
+                </div>
+            </form>
+        </div>
+        <div class="mdl-layout-spacer"></div>
+    </div>
+
+{% endblock %}

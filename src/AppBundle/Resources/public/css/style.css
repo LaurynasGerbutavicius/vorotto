@@ -102,3 +102,20 @@ tfoot tr {
 .mdl-js-menu a[href]:focus, .mdl-js-menu a[href]:hover {
     text-decoration: none;
 }
+
+.login-btn-container {
+    width: 100%;
+    display: inline-flex;
+}
+
+.login-btn {
+    margin: 0 auto;
+}
+
+.login-form input {
+    margin-bottom: 4px;
+}
+
+.login-form .mdl-textfield {
+    width: 100%;
+}
