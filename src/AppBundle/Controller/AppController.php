@@ -6,7 +6,7 @@
  * Time: 10:47
  */
 
-namespace AppBundle\Utils\Controller;
+namespace AppBundle\Controller;
 
 use AppBundle\Entity\Expense;
 use AppBundle\Entity\Income;
@@ -17,6 +17,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\VarDumper\VarDumper;
 
 abstract class AppController extends Controller
 {
@@ -75,6 +76,8 @@ abstract class AppController extends Controller
 
                 
             $filter = ['from' => $from, 'to' => $to];
+
+            $this->get('session')->getFlashBag()->add('info', 'message.filter_applied');
             
             return $this->indexAction($criteria, $filter);
         }
@@ -99,6 +102,8 @@ abstract class AppController extends Controller
             $this->preEntitySave($entity, $form);
             $em->persist($entity);
             $em->flush();
+
+            $this->get('session')->getFlashBag()->add('info', 'message.record_saved');
 
             return $this->redirectToRoute($this->entityName . '_show', array('id' => $entity->getId()));
         }
@@ -144,6 +149,8 @@ abstract class AppController extends Controller
             $this->preEntitySave($entity, $form);
             $this->getDoctrine()->getManager()->flush();
 
+            $this->get('session')->getFlashBag()->add('info', 'message.record_updated');
+
             return $this->redirectToRoute($this->entityName . '_edit', array('id' => $entity->getId()));
         }
 
@@ -167,6 +174,8 @@ abstract class AppController extends Controller
         if ($entity) {
             $em->remove($entity);
             $em->flush();
+
+            $this->get('session')->getFlashBag()->add('info', 'message.record_deleted');
         }
 
         return $this->redirectToRoute($this->entityName . '_index');

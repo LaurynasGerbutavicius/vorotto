@@ -59,3 +59,9 @@ filter:
     label:
         date_from: 'Data nuo'
         date_to: 'Data iki'
+
+message:
+    record_saved: 'Įrašas išsaugotas.'
+    record_updated: 'Įrašas atnaujintas.'
+    record_deleted: 'Įrašas ištrintas.'
+    filter_applied: 'Taikomas filtras.'

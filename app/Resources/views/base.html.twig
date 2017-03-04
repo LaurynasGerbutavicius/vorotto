@@ -103,6 +103,18 @@
                 {% block top %}
                 {% endblock %}
                 <div class="jumbotron">
+                    {% block messages %}
+                        {% for message_type, messages in app.session.flashbag.all %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message_type }}">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    {{ message|trans }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endblock %}
                     {% block body %}
                     {% endblock %}
                 </div>

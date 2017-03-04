@@ -60,3 +60,10 @@ filter:
     label:
         date_from: 'Date from'
         date_to: 'Date to'
+
+
+message:
+    record_saved: 'Record saved.'
+    record_updated: 'Record updated.'
+    record_deleted: 'Record deleted.'
+    filter_applied: 'Filter applied.'
