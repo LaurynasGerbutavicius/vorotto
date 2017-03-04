@@ -68,7 +68,8 @@
     </div>
 
     {% set always_display_columns = ['title', 'amount'] %}
-    {% set display_only_desctop_columns = ['id'] %}
+    {% set display_only_desctop_columns = ['id', 'quantity', 'price'] %}
+    {% set hide_only_on_phone = ['date'] %}
 
     <table class="table table-striped table-hover dt">
         <thead>
@@ -78,6 +79,8 @@
                     class="all"
                 {% elseif header_item in display_only_desctop_columns %}
                     class="desktop"
+                {% elseif header_item in hide_only_on_phone %}
+                    class="desktop tablet-l tablet-p"
                 {% endif %}
                 >
                     {{ ('field.label.'~header_item)|trans }}
@@ -98,24 +101,25 @@
                 {% endfor %}
                 <td class="actions-col">
                     <div class="btn-group hidden-sm hidden-xs">
-                        <a class="btn btn-primary btn-sm"
+                        <a class="btn btn-primary btn-sm mdl-js-button mdl-js-ripple-effect"
                            href="{{ path(show_path_route, { 'id': entity.id }) }}">{{ 'action.show'|trans }}</a>
-                        <a class="btn btn-primary btn-sm"
+                        <a class="btn btn-primary btn-sm mdl-js-button mdl-js-ripple-effect"
                            href="{{ path(edit_path_route, { 'id': entity.id }) }}">{{ 'action.edit'|trans }}</a>
-                        <a class="btn btn-danger btn-sm"
+                        <a class="btn btn-danger btn-sm mdl-js-button mdl-js-ripple-effect"
                            href="{{ path(delete_path_route, { 'id': entity.id }) }}">{{ 'action.delete'|trans }}</a>
                     </div>
                     <div class="visible-sm visible-xs">
                         <!-- Right aligned menu below button -->
-                        <button id="demo-menu-lower-right-{{ loop.index }}"
+                        <button id="menu-lower-right-{{ loop.index }}"
                                 class="mdl-button mdl-js-button mdl-button--icon">
                             <i class="material-icons">more_vert</i>
                         </button>
 
                         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                            for="demo-menu-lower-right-{{ loop.index }}">
+                            for="menu-lower-right-{{ loop.index }}">
                             <li class="mdl-menu__item">
-                                <a href="{{ path(show_path_route, { 'id': entity.id }) }}">
+                                <a class="mdl-js-button mdl-js-ripple-effect"
+                                   href="{{ path(show_path_route, { 'id': entity.id }) }}">
                                     {{ 'action.show'|trans }}
                                 </a>
                             </li>

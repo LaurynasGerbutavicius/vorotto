@@ -43,7 +43,34 @@ $(function () {
     };
 
     if (locale === 'lt') {
-        datatableParameters.language = {"url": "https://cdn.datatables.net/plug-ins/1.10.13/i18n/Lithuanian.json"};
+        datatableParameters.language = {
+            "sEmptyTable":      "Lentelėje nėra duomenų",
+            "sInfo":            "Rodomi įrašai nuo _START_ iki _END_ iš _TOTAL_ įrašų",
+            "sInfoEmpty":       "Rodomi įrašai nuo 0 iki 0 iš 0",
+            "sInfoFiltered":    "(atrinkta iš _MAX_ įrašų)",
+            "sInfoPostFix":     "",
+            "sInfoThousands":   " ",
+            "sLengthMenu":      "Rodyti _MENU_ įrašus",
+            "sLoadingRecords":  "Įkeliama...",
+            "sProcessing":      "Apdorojama...",
+            "sThousands":       " ",
+            "sUrl":             "",
+            "sZeroRecords":     "Įrašų nerasta",
+
+            "oPaginate": {
+                "sFirst": "Pirmas",
+                "sPrevious": "Ankstesnis",
+                "sNext": "Tolimesnis",
+                "sLast": "Paskutinis"
+            },
+            "search": "",
+            "searchPlaceholder": "Ieškoti..."
+        };
+    } else {
+        datatableParameters.language = {
+            "search": "",
+            "searchPlaceholder": "Search..."
+        };
     }
 
     var $dtTable = $('table.dt');

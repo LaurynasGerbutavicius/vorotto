@@ -63,18 +63,21 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="{{ path('homepage') }}">Vorotto</a>
+                            <a class="navbar-brand mdl-js-button mdl-js-ripple-effect" href="{{ path('homepage') }}">Vorotto</a>
                         </div>
                         <div class="navbar-collapse collapse navbar-responsive-collapse">
                             <ul class="nav navbar-nav">
                                 <li{% if app.request.attributes.get('_route') == 'income_index' %} class="active"{% endif %}>
-                                    <a href="{{ path('income_index') }}">{{ 'list.title.income'|trans }}</a>
+                                    <a class="mdl-js-button mdl-js-ripple-effect"
+                                       href="{{ path('income_index') }}">{{ 'list.title.income'|trans }}</a>
                                 </li>
                                 <li{% if app.request.attributes.get('_route') == 'expense_index' %} class="active"{% endif %}>
-                                    <a href="{{ path('expense_index') }}">{{ 'list.title.expense'|trans }}</a>
+                                    <a class="mdl-js-button mdl-js-ripple-effect"
+                                       href="{{ path('expense_index') }}">{{ 'list.title.expense'|trans }}</a>
                                 </li>
                                 <li{% if app.request.attributes.get('_route') == 'widgets_index' %} class="active"{% endif %}>
-                                    <a href="#">{{ 'list.title.widgets'|trans }}</a>
+                                    <a class="mdl-js-button mdl-js-ripple-effect"
+                                       href="#">{{ 'list.title.widgets'|trans }}</a>
                                 </li>
                             </ul>
                             {#<form class="navbar-form navbar-left" action="{{ path('search') }}" method="GET">#}
@@ -85,12 +88,13 @@
                             {#</form>#}
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
-                                    <a>
+                                    <a href="#" class="mdl-js-button mdl-js-ripple-effect">
                                         <i class="material-icons">face</i> {{ app.user ? app.user : 'user.annonymous'|trans }}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ app.user ? path('fos_user_security_logout') : path('fos_user_security_login') }}"> {{ app.user ? 'action.logout'|trans : 'action.login'|trans }}</a>
+                                    <a class="mdl-js-button mdl-js-ripple-effect"
+                                       href="{{ app.user ? path('fos_user_security_logout') : path('fos_user_security_login') }}"> {{ app.user ? 'action.logout'|trans : 'action.login'|trans }}</a>
                                 </li>
                             </ul>
                         </div>

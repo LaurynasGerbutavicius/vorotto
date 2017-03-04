@@ -10,11 +10,12 @@
         </div>
         <div class="col-md-4">
             {% if form_type != 'new' %}
-                <a class="btn btn-raised btn-primary pull-right"
+                <a class="btn btn-raised btn-primary pull-right mdl-js-button mdl-js-ripple-effect"
                    href="{{ path(new_path_route) }}">{{ 'action.new'|trans }}
                 </a>
             {% endif %}
-            <a class="btn btn-default pull-right" href="{{ listPath }}">{{ 'action.to_list'|trans }}</a>
+            <a class="btn btn-default pull-right mdl-js-button mdl-js-ripple-effect"
+               href="{{ listPath }}">{{ 'action.to_list'|trans }}</a>
         </div>
     </div>
 
@@ -25,13 +26,16 @@
     <div class="btn-group text-center row mdl-cell mdl-cell--12-col">
         {% if form_type == 'show' %}
             {% set edit_path = path(entity_name ~ '_edit', {'id' : entity_id}) %}
-            <a class="btn btn-primary" href="{{ edit_path }}">{{ 'action.edit'|trans }}</a>
+            <a class="btn btn-primary mdl-js-button mdl-js-ripple-effect"
+               href="{{ edit_path }}">{{ 'action.edit'|trans }}</a>
         {% else %}
-            <input class="btn btn-primary" type="submit" value="{{ 'action.save'|trans }}"/>
+            <input class="btn btn-primary mdl-js-button mdl-js-ripple-effect" type="submit"
+                   value="{{ 'action.save'|trans }}"/>
         {% endif %}
         {% if form_type != 'new' %}
             {% set delete_path = path(entity_name ~ '_delete', {'id' : entity_id}) %}
-            <a class="btn btn-danger pull-right" href="{{ delete_path }}">{{ 'action.delete'|trans }}</a>
+            <a class="btn btn-danger pull-right mdl-js-button mdl-js-ripple-effect"
+               href="{{ delete_path }}">{{ 'action.delete'|trans }}</a>
         {% endif %}
     </div>
 

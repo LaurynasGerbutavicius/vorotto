@@ -98,3 +98,7 @@ tfoot tr {
     height: 3em;
     border-top: 0.2em solid #009688
 }
+
+.mdl-js-menu a[href]:focus, .mdl-js-menu a[href]:hover {
+    text-decoration: none;
+}
