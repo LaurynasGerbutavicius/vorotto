@@ -69,15 +69,15 @@
                             <ul class="nav navbar-nav">
                                 <li{% if app.request.attributes.get('_route') == 'income_index' %} class="active"{% endif %}>
                                     <a class="mdl-js-button mdl-js-ripple-effect"
-                                       href="{{ path('income_index') }}">{{ 'list.title.income'|trans }}</a>
+                                       href="{{ path('income_index') }}">{{ 'title.list.income'|trans }}</a>
                                 </li>
                                 <li{% if app.request.attributes.get('_route') == 'expense_index' %} class="active"{% endif %}>
                                     <a class="mdl-js-button mdl-js-ripple-effect"
-                                       href="{{ path('expense_index') }}">{{ 'list.title.expense'|trans }}</a>
+                                       href="{{ path('expense_index') }}">{{ 'title.list.expense'|trans }}</a>
                                 </li>
                                 <li{% if app.request.attributes.get('_route') == 'widgets_index' %} class="active"{% endif %}>
                                     <a class="mdl-js-button mdl-js-ripple-effect"
-                                       href="#">{{ 'list.title.widgets'|trans }}</a>
+                                       href="{{ path('dashboard') }}">{{ 'title.list.widgets'|trans }}</a>
                                 </li>
                             </ul>
                             {#<form class="navbar-form navbar-left" action="{{ path('search') }}" method="GET">#}
@@ -125,8 +125,9 @@
 <br>
 
 {% block javascripts %}
+
+    <script src="{{ asset('bundles/app/js/jquery-1.10.2.min.js') }}"></script>
     {% javascripts
-    'bundles/app/js/jquery-1.10.2.min.js'
     'bundles/app/js/bootstrap.min.js'
     'bundles/app/js/ripples.min.js'
     'bundles/app/js/moment-with-locales.min.js'

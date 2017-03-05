@@ -8,6 +8,7 @@ action:
     login: Prisijungti
     logout: Atsijungti
     filter: Filtruoti
+    download: Atsisiųsti
 
 field.label:
     id: Nr.
@@ -19,21 +20,25 @@ field.label:
     actions: Veiksmai
     user: Vartotojas
 
-list.title:
-    expense: Išlaidos
-    income: Pajamos
-    widgets: Grafikai
-
-form.title:
-    new:
-        income: 'Naujos Pajamos'
-        expense: 'Naujos Išlaidos'
-    edit:
-        income: 'Pajamų redagavimas'
-        expense: 'Išlaidų redagavimas'
-    show:
-        income: 'Pajamų peržiūra'
-        expense: 'Išlaidų peržiūra'
+title:
+    list:
+        expense: Išlaidos
+        income: Pajamos
+        widgets: Grafikai
+    form:
+        new:
+            income: 'Naujos Pajamos'
+            expense: 'Naujos Išlaidos'
+        edit:
+            income: 'Pajamų redagavimas'
+            expense: 'Išlaidų redagavimas'
+        show:
+            income: 'Pajamų peržiūra'
+            expense: 'Išlaidų peržiūra'
+    dashboard:
+        expense_by_category: 'Išlaidos pagal kategoriją'
+        expense_by_weekday: 'Išlaidos pagal savaitės dieną'
+        most_usual_expenses: 'Dažniausios išlaidos'
 
 placeholder:
     search: Ieškoti

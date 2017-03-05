@@ -1,0 +1,332 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/pie.js"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/funnel.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/responsive/responsive.js"></script>
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+    <script>
+        $(function () {
+            var exportMenu = [{
+                "class": "export-main",
+                "menu": [{
+                    "label": "{{ 'action.download'|trans }}",
+                    "menu": ["PNG", "SVG", "CSV", "XLSX"]
+                }]
+            }];
+            AmCharts.lazyLoadMakeChart = AmCharts.makeChart;
+
+            // override makeChart function
+            AmCharts.makeChart = function (a, b, c) {
+
+                // set scroll events
+                jQuery(document).on('scroll load touchmove', handleScroll);
+                jQuery(window).on('load', handleScroll);
+
+                function handleScroll() {
+                    var $ = jQuery;
+                    if (true === b.lazyLoaded)
+                        return;
+                    var hT = $('#' + a).offset().top,
+                            hH = $('#' + a).outerHeight() / 2,
+                            wH = $(window).height(),
+                            wS = $(window).scrollTop();
+                    if (wS > (hT + hH - wH - 50)) {
+                        b.lazyLoaded = true;
+                        AmCharts.lazyLoadMakeChart(a, b, c);
+                        return;
+                    }
+                }
+            };
+
+            var expenseCategories = AmCharts.makeChart("chartdiv1", {
+                "type": "pie",
+                "startDuration": 1,
+                "theme": "light",
+                "addClassNames": true,
+                "legend": {
+                    "position": "right",
+                    "marginRight": 80,
+                    "autoMargins": false,
+                    "listeners": [
+                        {"event": "hideItem", "method": handleTotals},
+                        {"event": "showItem", "method": handleTotals}
+                    ]
+                },
+                "listeners": [
+                    {"event": "animationFinished", "method": addTotal}
+                ],
+                "innerRadius": "40%",
+                "defs": {
+                    "filter": [{
+                        "id": "shadow",
+                        "width": "200%",
+                        "height": "200%",
+                        "feOffset": {
+                            "result": "offOut",
+                            "in": "SourceAlpha",
+                            "dx": 0,
+                            "dy": 0
+                        },
+                        "feGaussianBlur": {
+                            "result": "blurOut",
+                            "in": "offOut",
+                            "stdDeviation": 5
+                        },
+                        "feBlend": {
+                            "in": "SourceGraphic",
+                            "in2": "blurOut",
+                            "mode": "normal"
+                        }
+                    }]
+                },
+                "allLabels": [{
+                    "text": "",
+                    "align": "center",
+                    "bold": true,
+                    "y": 240
+                }],
+                "dataProvider": [
+                    {
+                        "country": "Lithuania",
+                        "litres": 501.9
+                    }, {
+                        "country": "Czech Republic",
+                        "litres": 301.9
+                    }, {
+                        "country": "Ireland",
+                        "litres": 201.1
+                    }, {
+                        "country": "Germany",
+                        "litres": 165.8
+                    }, {
+                        "country": "Australia",
+                        "litres": 139.9
+                    }, {
+                        "country": "Austria",
+                        "litres": 128.3
+                    }, {
+                        "country": "UK",
+                        "litres": 99
+                    }, {
+                        "country": "Belgium",
+                        "litres": 60
+                    }, {
+                        "country": "The Netherlands",
+                        "litres": 50
+                    }
+                ],
+                "valueField": "litres",
+                "titleField": "country",
+                "export": {
+                    "enabled": true,
+                    "menu": exportMenu
+                },
+                "responsive": {
+                    "enabled": true,
+                    "addDefaultRules": false,
+                    "rules": [
+                        {
+                            "maxWidth": 700,
+                            "overrides": {
+                                "legend": {
+                                    "position": "bottom"
+                                },
+                                "allLabels": [{
+                                    "y": 195
+                                }]
+                            }
+                        },
+                        {
+                            "maxWidth": 500,
+                            "overrides": {
+                                "valueAxes": {},
+                                "labelsEnabled": false,
+                                "allLabels": [{
+                                    "y": 220
+                                }]
+                            }
+                        }
+                    ]
+                }
+            });
+
+            function addTotal(data) {
+                var result = 0;
+                for (var i = 0; i < data.chart.dataProvider.length; i++) {
+                    result += data.chart.dataProvider[i].litres;
+                }
+                data.chart.allLabels[0].text = result.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+                data.chart.validateNow();
+            }
+
+            function handleTotals(data) {
+                var result, value;
+                var value = data.chart.allLabels[0].text.replace(',', '');
+                if (data.type == 'hideItem') {
+                    result = parseFloat(value) - data.dataItem.value;
+                } else {
+                    result = parseFloat(value) + data.dataItem.value;
+                }
+                data.chart.allLabels[0].text = result.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+                data.chart.validateNow();
+            }
+
+
+            var expenseByWeekDay = AmCharts.makeChart("chartdiv2", {
+                "type": "serial",
+                "theme": "light",
+                "marginRight": 0,
+                "dataProvider": [
+                    {
+                        "country": "USA",
+                        "visits": 3025,
+                        "color": "#67b7dc"
+                    }, {
+                        "country": "China",
+                        "visits": 1882,
+                        "color": "#fdd400"
+                    }, {
+                        "country": "Japan",
+                        "visits": 1809,
+                        "color": "#84b761"
+                    }, {
+                        "country": "Germany",
+                        "visits": 1322,
+                        "color": "#cc4748"
+                    }, {
+                        "country": "UK",
+                        "visits": 1122,
+                        "color": "#cd82ad"
+                    }, {
+                        "country": "France",
+                        "visits": 1114,
+                        "color": "#2f4074"
+                    }, {
+                        "country": "India",
+                        "visits": 984,
+                        "color": "#448e4d"
+                    }
+                ],
+                "valueAxes": [{
+                    "axisAlpha": 0,
+                    "position": "left"
+                }],
+                "startDuration": 1,
+                "graphs": [{
+                    "balloonText": "<b>[[category]]: [[value]]</b>",
+                    "fillColorsField": "color",
+                    "fillAlphas": 0.9,
+                    "lineAlpha": 0.2,
+                    "type": "column",
+                    "valueField": "visits"
+                }],
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+                "categoryField": "country",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "labelRotation": 90
+                },
+                "export": {
+                    "enabled": true,
+                    "divId": "chart2_export",
+                    "menu": exportMenu
+                },
+                "responsive": {
+                    "enabled": true
+                }
+            });
+
+
+            var expensesByQuantity = AmCharts.makeChart("chartdiv3", {
+                "type": "funnel",
+                "theme": "light",
+                "dataProvider": [
+                    {
+                        "title": "Website visits",
+                        "value": 300
+                    }, {
+                        "title": "Downloads",
+                        "value": 123
+                    }, {
+                        "title": "Requested price list",
+                        "value": 98
+                    }, {
+                        "title": "Contaced for more info",
+                        "value": 72
+                    }, {
+                        "title": "Purchased",
+                        "value": 35
+                    }, {
+                        "title": "Contacted for support",
+                        "value": 15
+                    }, {
+                        "title": "Purchased additional products",
+                        "value": 8
+                    }
+                ],
+                "valueField": "value",
+                "titleField": "title",
+                "marginRight": 200,
+                "marginLeft": 0,
+                "startX": 500,
+                "rotate": true,
+                "labelOffset": 20,
+                "labelPosition": "right",
+                "balloonText": "[[title]]: [[value]]",
+                "export": {
+                    "enabled": true,
+                    "divId": "chart3_export",
+                    "menu": exportMenu
+                },
+                "responsive": {
+                    "enabled": true
+                }
+            });
+        });
+
+
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div class="dashboard-area mdl-grid">
+                <div class="chart-container mdl-cell mdl-cell--12-col">
+                    <div class="chart-title">
+                        <h3>{{ 'title.dashboard.expense_by_category'|trans }}</h3>
+                    </div>
+                    <div id="chartdiv1" class="chart"></div>
+                </div>
+                <div class="chart-container mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
+                    <div class="chart-title has-export-btn">
+                        <h3>{{ 'title.dashboard.expense_by_weekday'|trans }}</h3>
+                    </div>
+                    <div id="chart2_export" class="chart-export"></div>
+                    <div id="chartdiv2" class="chart"></div>
+                </div>
+                <div class="chart-container mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
+                    <div class="chart-title has-export-btn">
+                        <h3>{{ 'title.dashboard.most_usual_expenses'|trans }}</h3>
+                    </div>
+                    <div id="chart3_export" class="chart-export"></div>
+                    <div id="chartdiv3" class="chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

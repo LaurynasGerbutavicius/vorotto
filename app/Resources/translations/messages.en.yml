@@ -8,6 +8,7 @@ action:
     login: Login
     logout: Logout
     filter: Filter
+    download: Download
 
 field.label:
     id: No.
@@ -19,21 +20,23 @@ field.label:
     actions: Actions
     user: User
 
-list.title:
-    expense: Expenses
-    income: Income
-    widgets: Widgets
-
-form.title:
-    new:
-        income: 'New Income'
-        expense: 'New Expense'
-    edit:
-        income: 'Edit Income'
-        expense: 'Edit Expense'
-    show:
-        income: 'Show Income'
-        expense: 'Show Expense'
+title:
+    list:
+        expense: Expenses
+        income: Income
+        widgets: Widgets
+    form:
+        new:
+            income: 'New Income'
+            expense: 'New Expense'
+        edit:
+            income: 'Edit Income'
+            expense: 'Edit Expense'
+        show:
+            income: 'Show Income'
+            expense: 'Show Expense'
+    dashboard:
+        largest_expense_categories: 'Largest expense categories'
 
 placeholder:
     search: Search

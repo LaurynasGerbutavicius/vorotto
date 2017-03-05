@@ -6,7 +6,7 @@
  * Time: 14:57
  */
 
-namespace AppBundle\Utils\Entity;
+namespace AppBundle\Utils;
 
 
 class EntityNameTransformer

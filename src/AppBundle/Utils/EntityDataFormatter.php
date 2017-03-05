@@ -6,7 +6,7 @@
  * Time: 14:50
  */
 
-namespace AppBundle\Utils\Entity;
+namespace AppBundle\Utils;
 
 
 class EntityDataFormatter
